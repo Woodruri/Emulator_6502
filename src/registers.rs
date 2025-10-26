@@ -24,72 +24,20 @@ Bit 6:Overflow flag: set if during arithmetic op, invalid 2s complement is retur
 Bit 7:Negative flag: set if result of last op had a 7th bit set to 1
 */
 //These are all the bitmasks for the flags, to be used inside of the status register
-const CARRY_FLAG:u8 = 0b0000_0001;
-const ZERO_FLAG:u8 = 0b0000_0010;
-const INTERRUPT_DISABLE:u8 = 0b0000_0100;
-const DECIMAL_MODE:u8 = 0b0000_1000;
-const BREAK_COMMAND:u8 = 0b0001_0000;
-const UNUSED_FLAG:u8 = 0b0010_0000; //don't use this, it's there for accuracy
-const OVERFLOW_FLAG:u8 = 0b0100_0000;
-const NEGATIVE_FLAG:u8 = 0b1000_0000;
 
-
-
-pub struct StatusFlags {
-    pub carry: bool,
-    pub zero: bool,
-    pub interrupt: bool,
-    pub decimal_mode: bool,
-    pub break_command: bool,
-    pub unused: bool, //again, don't use
-    pub overflow: bool,
-    pub negative: bool
+bitflags! {
+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    pub struct StatusFlags: u8 {
+        const CARRY_FLAG = 0b0000_0001;
+        const ZERO_FLAG = 0b0000_0010;
+        const INTERRUPT_DISABLE = 0b0000_0100;
+        const DECIMAL_MODE = 0b0000_1000;
+        const BREAK_COMMAND = 0b0001_0000;
+        const UNUSED_FLAG = 0b0010_0000; //don't use this, it's there for accuracy
+        const OVERFLOW_FLAG = 0b0100_0000;
+        const NEGATIVE_FLAG = 0b1000_0000;
+    }
 }
-
-impl StatusFlags {
-    pub fn new() -> None() {
-        carry = false;
-        zero = false;
-        interrupt = false;
-        decimal_mode = false;
-        break_command = false;
-        unused = false;
-        overflow = false;
-        negative = false;
-    }
-
-    //getters
-    pub fn is_carry_true(&self) -> bool {
-        self.carry
-    }
-    pub fn is_zero_true(&self) -> bool {
-        self.zero
-    }
-    pub fn is_interrupt_true(&self) -> bool {
-        self.interrupt
-    }
-    pub fn is_decimal_mode_true(&self) -> bool {
-        self.decimal_mode
-    }
-    pub fn is_break_command_true(&self) -> bool {
-        self.break_command
-    }
-    //Just for completion sake
-    pub fn is_unused_true(&self) -> bool {
-        self.unused
-    }
-    pub fn is_overflow_true(&self) -> bool {
-        self.overflow
-    }
-    pub fn is_negative_true(&self) -> bool {
-        self.negative
-    }
-
-    //setters
-
-}
-
-
 
 
 /*6502 has the following registers:
