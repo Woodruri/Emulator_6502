@@ -3,19 +3,8 @@
 //test roms: https://www.nesdev.org/wiki/Emulator_tests
 //Made by Riley Woodruff
 
-//this file is the cpu control flow in the 6502 processor
+//This file handles the memory in the 6502
 
 
-//mod
-
-
-pub struct CPU {
-
-}
-
-impl CPU {
-    //TODO
-    pub fn new() -> u8 {
-        return 0;
-    }
-}
+//6502 processor has memory that ranges from 0x0000 to 0xFFFF. 
+//Can only address 64 kB
