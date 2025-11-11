@@ -8,14 +8,21 @@
 
 //mod
 
+//TODO: uncomment and combine all into cpu
+use crate::registers::{Registers, StatusFlags};
+//use crate::memory::{};
+//use crate:: registers::{};
+
 
 pub struct CPU {
-
+    pub registers: Registers,
 }
 
 impl CPU {
     //TODO
-    pub fn new() -> u8 {
-        return 0;
+    pub fn new() -> Self {
+        CPU {
+            registers: Registers::new(),
+        }
     }
 }

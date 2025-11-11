@@ -46,59 +46,57 @@ bitflags! {
     Accumulator: 8 bit
     Index X: 8 bit
     Index Y: 8 bit
-    Processor Status: 8 bits for flags from above, located at 
+    Processor Status: 8 bits for StatusFlags above
 */
 pub struct Registers {
-    prog_c:u16, //Program Counter
-    stack_p:u8, //Stack Pointer
-    a:u8, //Accumulator
-    x:u8, 
-    y:u8,
-    status:StatusFlags, // Processor Status
+    prog_c: u16, //Program Counter
+    stack_p: u8, //Stack Pointer
+    a: u8, //Accumulator
+    x: u8, 
+    y: u8,
+    status: StatusFlags, // Processor Status
 }
 
 //implempentation
 impl Registers {
 
     pub fn new() -> Self {
-        CPU {
+        Registers {
             prog_c: 0,
             stack_p: 0xFD, //SP starts at 0xFD and grows down
             a: 0,
             x: 0,
             y: 0,
-            status: StatusFlags //processor status is located at 0x24
+            status: StatusFlags::from_bits_truncate(0x0) //processor status is located at 0x24
         }
     }
-
-    //funcs
 
     //flag instructions
-    fn set_flag(&mut self, flag: u8, to_set: bool) {
+    pub fn set_flag(&mut self, flag: StatusFlags, to_set: bool) {
         /*
-        sets status flags
-        flag:u8 is flag to set
-        to_set:bool is whether to set or unset the flag. false means unset, true means set
-         */
+        Sets status flags
+        flag: StatusFlags is the flag to set
+        to_set: bool is whether to set or unset the flag. false means unset, true means set
+        */
 
-        //set the flag
-        if to_set {
-            self.status |= flag;
+        //making more verbose so I don't accidentally confuse myself
+        if to_set == true{
+            self.status.insert(flag);
         }
-        //unset the flag
         else {
-            self.status &= !flag;
+            self.status.remove(flag);
         }
     }
 
-    fn get_flag(&self, flag: u8) -> bool {
+    pub fn get_flag(&self, flag: StatusFlags) -> bool {
         /*
         Returns if flag arg is set or not
+        flag: The flag that we are checking the status of
          */
-        (self.status & flag) != 0;
+        self.status.contains(flag)
     }
 
     //Load/Store instructions
     
-    //
+        
 }
